@@ -7,9 +7,9 @@ from colorama import Fore, Back, Style
 
 init()
 print(Fore.RED)
-tprint("VXRGXS", "rand", space = 1)
+tprint("VXRGXS", "rand", space=1)
 
-ctypes.windll.kernel32.SetConsoleTitleA(b"MMR by VXRGXS")
+ctypes.windll.kernel32.SetConsoleTitleA(b"MMRapp")
 
 print(Fore.GREEN + Style.BRIGHT)
 
@@ -38,10 +38,12 @@ while work:
             players = block1["7"]  # Список игроков в 1 блоке
             regime = block1["4"]
             pveregime = {
-                "polygon": 1, "pvehard": 4, "pve": 4, "onslaughtnormal": 4, "onslaughthard": 4, "pvpdestruction": 8, "pvpve": 8, "pvp": 8, "hacking": 8
+                "polygon": 1, "pvehard": 4, "pve": 4, "onslaughtnormal": 4, "onslaughthard": 4, "pvpdestruction": 8,
+                "pvpve": 8, "pvp": 8, "hacking": 8
             }
             # Вывод инфы
-            print(Fore.MAGENTA + "ID реплея: ", Fore.RED,  block1["0"], Fore.MAGENTA, "\tКарта: ", Fore.RED, block1["2"], Fore.MAGENTA, "\tРежим: ", Fore.RED, block1["4"], Fore.MAGENTA, "\tРегион: ", Fore.RED,
+            print(Fore.MAGENTA + "ID реплея: ", Fore.RED, block1["0"], Fore.MAGENTA, "\tКарта: ", Fore.RED, block1["2"],
+                  Fore.MAGENTA, "\tРежим: ", Fore.RED, block1["4"], Fore.MAGENTA, "\tРегион: ", Fore.RED,
                   block1["6"])
             for i in range(int(pveregime.get(regime))):
                 if i == 0:
@@ -55,8 +57,8 @@ while work:
 
             # Вывод доп инфы
             while True:
-                #word = input("\ninfo - Доп информация об игроках\nrep - к списку реплеев\nexit - выход\n")
-                word = input(f"""{Fore.BLUE}\ninfo{Fore.GREEN} - Доп информация об игроках\n{Fore.BLUE}rep{Fore.GREEN} - к списку реплеев\n{Fore.BLUE}exit{Fore.GREEN} - выход\n""")
+                word = input(
+                    f"""{Fore.BLUE}\ninfo{Fore.GREEN} - Доп информация об игроках\n{Fore.BLUE}rep{Fore.GREEN} - к списку реплеев\n{Fore.BLUE}exit{Fore.GREEN} - выход\n""")
                 os.system('CLS')
                 if word == "info":
                     for i in range(int(pveregime.get(regime))):
@@ -64,13 +66,14 @@ while work:
                         playerOper = player["8"]
                         print(Fore.BLUE, i, Fore.GREEN, player["2"], Fore.BLUE)
                     numberPlayer = input(
-                        "\n************************\nВведите номер игрока, чтобы посмотреть дополнительную информацию:\n")
+                        "\n*********************\nВведите номер игрока, чтобы посмотреть дополнительную информацию:\n")
                     if numberPlayer.isdigit():
                         if int(numberPlayer) < int(pveregime.get(regime)):
                             player = players[int(numberPlayer)]
                             playerOper = player["8"]
-                            print(f"""
-{Fore.RED}{player["2"]}
+                            print(
+                                f"""
+{Fore.RED}{player["2"]}\n
 {Fore.MAGENTA}Оперативник:            {Fore.RED}{playerOper["18"]}
 {Fore.MAGENTA}Резервы:                {Fore.RED}{playerOper["14"]}
 {Fore.MAGENTA}Установленные навыки:   {Fore.RED}{playerOper["15"]}
@@ -79,7 +82,8 @@ while work:
 {Fore.MAGENTA}Опыт оперативника:      {Fore.RED}{playerOper["4"]}
 
 {Fore.MAGENTA}Все навыки игрока:
-{Fore.RED}{player["20"]}""")
+{Fore.RED}{player["20"]}
+""")
                         else:
                             print(Fore.RED, "\n***Введен неверный номер***")
                     else:
