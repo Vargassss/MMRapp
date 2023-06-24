@@ -8,18 +8,20 @@ from colorama import Fore, Back, Style
 init()
 
 print(Fore.RED)
-os.system(f"mode con:cols=150 lines=30")
 tprint("VXRGXS", "rand", space=1)
 
-ctypes.windll.kernel32.SetConsoleTitleA(b"MMRapp")
+ctypes.windll.kernel32.SetConsoleTitleA(b"MMR")
 
-print(Fore.GREEN + Style.BRIGHT)
+print(Style.BRIGHT)
 
 work = True
+name = os.environ["UserName"]
 while work:
-    name = os.environ["UserName"]
     content = os.listdir("C:\\Users\\" + name + "\\AppData\\LocalLow\\1CGS\\Caliber\\Replays")
-    for i, file in enumerate(content):  # Вывод списка реплеев
+    content.sort(
+        key=lambda x: os.path.getmtime("C:\\Users\\" + name + "\\AppData\\LocalLow\\1CGS\\Caliber\\Replays\\" + x),
+        reverse=True)
+    for i, file in enumerate(content):
         print(Fore.BLUE + str(i) + " " + Fore.GREEN + content[i])
     number = input(Fore.BLUE + "Введите номер реплея\n")
     os.system('CLS')
@@ -55,7 +57,7 @@ while work:
                 player = players[i]
                 playerOper = player["8"]
                 print(
-                    f"""{Fore.MAGENTA}Оперативник: {Fore.RED}{("{0:<10}").format(playerOper["1"])}{Fore.MAGENTA}\tID группы: {Fore.RED}{("{0:<7}").format(player["1"])}{Fore.MAGENTA}\tID игрока: {Fore.RED}{("{0:<7}").format(player["0"])}{Fore.MAGENTA}\tУровень: {Fore.RED}{("{0:<2}").format(player["3"])}{Fore.MAGENTA}\tНикнейм: {Fore.RED}{("{0:<10}").format(player["2"])}{Fore.MAGENTA}""")
+                    f"""{Fore.RED}{("{0:<18}").format(player["2"])}{Fore.MAGENTA}ID группы: {Fore.RED}{("{0:<10}").format(player["1"])}{Fore.MAGENTA}ID игрока: {Fore.RED}{("{0:<10}").format(player["0"])}{Fore.MAGENTA}Опер: {Fore.RED}{("{0:<14}").format(playerOper["1"])}{Fore.MAGENTA}Уровень: {Fore.RED}{("{0:<4}").format(player["3"])}{Fore.MAGENTA}""")
 
             # Вывод доп инфы
             while True:
