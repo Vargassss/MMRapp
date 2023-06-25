@@ -25,11 +25,9 @@ while work:
         print(Fore.BLUE + str(i) + " " + Fore.GREEN + content[i])
     number = input(Fore.BLUE + "Введите номер реплея\n")
     os.system('CLS')
-
-    if number.isdigit():
+    if number.isdigit() and int(number) < len(content):
         number = int(number)
-        try:
-            f = open("C:\\Users\\" + name + "\\AppData\\LocalLow\\1CGS\\Caliber\\Replays\\" + content[number], "rb")
+        with open("C:\\Users\\" + name + "\\AppData\\LocalLow\\1CGS\\Caliber\\Replays\\" + content[number], "rb") as f:
             text = f.readline()
             text = str(text)  # приведение к str с byte
             text = text[text.find("{"):text.rfind("}") + 2]  # обрезка с первого { по последний }
@@ -58,6 +56,7 @@ while work:
                 playerOper = player["8"]
                 print(
                     f"""{Fore.RED}{("{0:<18}").format(player["2"])}{Fore.MAGENTA}ID группы: {Fore.RED}{("{0:<10}").format(player["1"])}{Fore.MAGENTA}ID игрока: {Fore.RED}{("{0:<10}").format(player["0"])}{Fore.MAGENTA}Опер: {Fore.RED}{("{0:<14}").format(playerOper["1"])}{Fore.MAGENTA}Уровень: {Fore.RED}{("{0:<4}").format(player["3"])}{Fore.MAGENTA}""")
+
 
             # Вывод доп инфы
             while True:
@@ -88,6 +87,7 @@ while work:
 {Fore.MAGENTA}Навыки аккаунта:
 {Fore.RED}{player["20"]}
 """)
+
                     else:
                         print(Fore.RED, "\n***Введен неверный номер***")
                         break
@@ -100,8 +100,6 @@ while work:
                 else:
                     print(Fore.RED, "\nОшибка")
                     continue
-        except:
-            print(Fore.RED, "\n***Не удается открыть реплей***")
 
     else:
         os.system('CLS')
