@@ -7,6 +7,34 @@ from colorama import Fore, Back, Style
 
 init()
 
+allOp = {  # Словарь ид оперативника : название
+    "recruita": "", "recruitg": "Р-Поддержка", "recruitm": "Р-Медик", "recruits": "Р-Снайпер",
+    "fsb2004a": "Волк", "fsb2004g": "Алмаз", "fsb2004m": "Дед", "fsb2004s": "Стрелок",
+    "fsb2016a": "Перун", "fsb2016g": "Сварог", "fsb2016m": "Травник", "fsb2016s": "Сокол",
+    "sso2013a": "Ворон", "sso2013g": "Спутник", "sso2013m": "Бард", "sso2013s": "Комар",
+    "22spn2016a": "Плут", "22spn2016g": "Кит", "22spn2016m": "Каравай", "22spn2016s": "Тень",
+    "grom2014a": "Кошмар", "grom2014g": "Пророк", "grom2014m": "Микола", "grom2014s": "Стилет",
+    "ksk2011a": "Рейн", "ksk2011g": "Штерн", "ksk2011m": "Шатц", "ksk2011s": "Курт",
+    "seal2014a": "Корсар", "seal2014g": "Бурбон", "seal2014m": "Монк", "seal2014s": "Скаут",
+    "tfb2008a": "Стрелинг", "tfb2008g": "Бишоп", "tfb2008m": "Ватсон", "tfb2008s": "Арчер",
+    "raid2017a": "Авангард", "raid2017g": "Бастион", "raid2017m": "Велюр", "raid2017s": "Вагабонд",
+    "nesher2015a": "Афела", "nesher2015g": "Хагана", "nesher2015m": "Шаршерет", "nesher2015s": "Эйма",
+    "ezapaca": "Фаро", "ezapacg": "Матадор", "ezapacm": "Мигель", "ezapacs": "Диабло",
+    "arystana": "Мустанг", "arystang": "Тибет", "arystanm": "Багги", "arystans": "Султан",
+    "belssoa": "Лазутчик", "belssog": "Зубр", "belssom": "Каваль", "belssos": "Бусел",
+    "amfa": "Старкад", "amfg": "Один", "amfm": "Фрейр", "amfs": "Видар",
+    "jiaolonga": "Шаовэй", "jiaolongg": "Инчжоу", "jiaolongm": "Яован", "jiaolongs": "Цанлун",
+    "csta": "Слай", "cstg": "Фортресс", "cstm": "Боунс", "csts": "Аваланш"
+}
+
+groups = {  # Создаем номер группы и с уникальным цветом(максимум возможно 4 группы)
+    1: Back.RED, 2: Back.BLUE, 3: Back.GREEN, 4: Back.WHITE
+}
+allRegimes = {  # Список режимов и количество игроков в нем
+    "polygon": 1, "pvehard": 4, "pve": 4, "onslaughtnormal": 4, "onslaughthard": 4, "pvpdestruction": 8,
+    "pvpve": 8, "pvp": 8, "hacking": 8
+}
+
 print(Fore.RED)
 tprint("VXRGXS", "rand")
 
@@ -39,40 +67,18 @@ while work:
             block1 = json.loads(sub_text1)  # 1 блок логов
             players = block1["7"]  # Список игроков в 1 блоке
             regime = block1["4"]
-            allOp = {
-                "recruita": "", "recruitg": "Р-Поддержка", "recruitm": "Р-Медик", "recruits": "Р-Снайпер",
-                "fsb2004a": "Волк", "fsb2004g": "Алмаз", "fsb2004m": "Дед", "fsb2004s": "Стрелок",
-                "fsb2016a": "Перун", "fsb2016g": "Сварог", "fsb2016m": "Травник", "fsb2016s": "Сокол",
-                "sso2013a": "Ворон", "sso2013g": "Спутник", "sso2013m": "Бард", "sso2013s": "Комар",
-                "22spn2016a": "Плут", "22spn2016g": "Кит", "22spn2016m": "Каравай", "22spn2016s": "Тень",
-                "grom2014a": "Кошмар", "grom2014g": "Пророк", "grom2014m": "Микола", "grom2014s": "Стилет",
-                "ksk2011a": "Рейн", "ksk2011g": "Штерн", "ksk2011m": "Шатц", "ksk2011s": "Курт",
-                "seal2014a": "Корсар", "seal2014g": "Бурбон", "seal2014m": "Монк", "seal2014s": "Скаут",
-                "tfb2008a": "Стрелинг", "tfb2008g": "Бишоп", "tfb2008m": "Ватсон", "tfb2008s": "Арчер",
-                "raid2017a": "Авангард", "raid2017g": "Бастион", "raid2017m": "Велюр", "raid2017s": "Вагабонд",
-                "nesher2015a": "Афела", "nesher2015g": "Хагана", "nesher2015m": "Шаршерет", "nesher2015s": "Эйма",
-                "ezapaca": "Фаро", "ezapacg": "Матадор", "ezapacm": "Мигель", "ezapacs": "Диабло",
-                "arystana": "Мустанг", "arystang": "Тибет", "arystanm": "Багги", "arystans": "Султан",
-                "belssoa": "Лазутчик", "belssog": "Зубр", "belssom": "Каваль",  "belssos": "Бусел",
-                "amfa": "Старкад", "amfg": "Один", "amfm": "Фрейр", "amfs": "Видар",
-                "jiaolonga": "Шаовэй", "jiaolongg": "Инчжоу", "jiaolongm": "Яован", "jiaolongs": "Цанлун",
-                "csta": "Слай", "cstg": "Фортресс", "cstm": "Боунс", "csts": "Аваланш"
-            }
-            allRegimes = {  # Список режим и количество игроков в нем
-                "polygon": 1, "pvehard": 4, "pve": 4, "onslaughtnormal": 4, "onslaughthard": 4, "pvpdestruction": 8,
-                "pvpve": 8, "pvp": 8, "hacking": 8
-            }
+
             print(Fore.MAGENTA + "ID реплея: ", Fore.RED, block1["0"], Fore.MAGENTA, "\tКарта: ", Fore.RED, block1["2"],
                   Fore.MAGENTA, "\tРежим: ", Fore.RED, block1["4"], Fore.MAGENTA, "\tРегион: ", Fore.RED,
                   block1["6"])
+
             gr = [players[i]["1"] for i in range(int(allRegimes.get(regime)))]  # Заполняем список всеми ИД групп
             for i in range(len(gr)):  # удаляем всех, кто не в группе
                 if gr.count(players[i]["1"]) == 1:
                     gr.remove(players[i]["1"])
-            groups = {1: Back.RED, 2: Back.BLUE, 3: Back.GREEN,
-                      4: Back.WHITE}  # Создаем номер группы и с уникальным цветом(максимум возможно 4 группы)
             lastGr = 0  # ИД последней группы
             grCount = 0  # Номер группы
+
             for i in range(int(allRegimes.get(regime))):
                 if i == 0:
                     print(Fore.BLUE + "\nКоманда #1")
@@ -107,8 +113,7 @@ while work:
                         "\n*********************\nВведите номер игрока, чтобы посмотреть дополнительную информацию:\n")
                     if numberPlayer.isdigit() and int(numberPlayer) < int(allRegimes.get(regime)):
                         player = players[int(numberPlayer)]
-                        print(
-                            f"""{Fore.RED}{player["2"]}\n
+                        print(f"""{Fore.RED}{player["2"]}\n
 {Fore.MAGENTA}Оперативник:            {Fore.RED}{allOp[player["8"]["1"]] if allOp.get(player["8"]["1"]) != None else player["8"]["1"]}
 {Fore.MAGENTA}Резервы:                {Fore.RED}{player["8"]["14"]}
 {Fore.MAGENTA}Установленные навыки:   {Fore.RED}{player["8"]["15"]}
