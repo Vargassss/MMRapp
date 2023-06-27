@@ -28,7 +28,7 @@ allOp = {  # Словарь ид оперативника : название
 }
 
 groups = {  # Создаем номер группы и с уникальным цветом(максимум возможно 4 группы)
-    1: Back.RED, 2: Back.BLUE, 3: Back.GREEN, 4: Back.WHITE
+    1: Back.GREEN, 2: Back.CYAN, 3: Back.WHITE, 4: Back.YELLOW
 }
 allRegimes = {  # Список режимов и количество игроков в нем
     "polygon": 1, "pvehard": 4, "pve": 4, "onslaughtnormal": 4, "onslaughthard": 4, "pvpdestruction": 8,
@@ -88,17 +88,21 @@ while work:
                 # color = Back.LIGHTBLUE_EX if gr.count(player["1"]) > 1 else Back.RESET
                 # Помечает, находится ли игрок в группе. Возможность до 4-х групп
                 if players[i]["1"] in gr:  # проверяем находится ли игрок в группе
+                    #print("leader") if players[i]["1"] == players[i]["0"] else print()
                     gr.remove(players[i]["1"])  # удаляем его из списка
                     if players[i]["1"] != lastGr:  # проверка, состоит ли игрок в предыдущей группе
                         lastGr = players[i]["1"]  # если не состоит, то новой группа получает новый ИД
                         grCount += 1  # меняет ИД цвета группы
-                    color = groups[grCount]  # получает ИД цвета группы
+                    color = groups[grCount] + " "  # получает ИД цвета группы
+                    if players[i]["1"] == players[i]["0"]:  # проверка на лидера группы
+                        color = groups[grCount] + Fore.BLACK + Style.NORMAL + "!"
                 else:
-                    color = Back.RESET  # Если не в группе, без цвета
+                    color = Back.RESET + " "  # Если не в группе, без цвета
                 # Проверка, есть ли новый оперативник в словаре, в случае None
                 # oper = allOp[players[i]["8"]["1"]] if allOp.get(players[i]["8"]["1"]) != None else players[i]["8"]["1"] # Проверка, есть ли новый оперативник в словаре, в случае None
+                # убрал {Fore.MAGENTA}ID группы: {Fore.RED}{("{0:<10}").format(players[i]["1"])}
                 print(
-                    f"""{color} {Back.RESET + Fore.RED}{("{0:<20}").format(players[i]["2"])}{Fore.MAGENTA}ID группы: {Fore.RED}{("{0:<10}").format(players[i]["1"])}{Fore.MAGENTA}ID игрока: {Fore.RED}{("{0:<10}").format(players[i]["0"])}{Fore.MAGENTA}Опер: {Fore.RED}{("{0:<14}").format(allOp[players[i]["8"]["1"]] if allOp.get(players[i]["8"]["1"]) != None else players[i]["8"]["1"])}{Fore.MAGENTA}Уровень: {Fore.RED}{("{0:<4}").format(players[i]["3"])}{Fore.MAGENTA}""")
+                    f"""{color}{Back.RESET + Style.BRIGHT + Fore.RED}{("{0:<20}").format(players[i]["2"])}{Fore.MAGENTA}ID игрока: {Fore.RED}{("{0:<10}").format(players[i]["0"])}{Fore.MAGENTA}Опер: {Fore.RED}{("{0:<14}").format(allOp[players[i]["8"]["1"]] if allOp.get(players[i]["8"]["1"]) != None else players[i]["8"]["1"])}{Fore.MAGENTA}Уровень: {Fore.RED}{("{0:<4}").format(players[i]["3"])}{Fore.MAGENTA}""")
 
             # Вывод доп инфы
             while True:
