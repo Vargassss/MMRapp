@@ -28,7 +28,7 @@ allOp = {  # Словарь ид оперативника : название
 }
 
 groups = {  # Создаем номер группы и с уникальным цветом(максимум возможно 4 группы)
-    1: Back.GREEN, 2: Back.CYAN, 3: Back.WHITE, 4: Back.YELLOW
+    0: Back.GREEN, 1: Back.CYAN, 2: Back.WHITE, 3: Back.YELLOW
 }
 allRegimes = {  # Список режимов и количество игроков в нем
     "polygon": 1, "pvehard": 4, "pve": 4, "onslaughtnormal": 4, "onslaughthard": 4, "pvpdestruction": 8,
@@ -73,34 +73,22 @@ while work:
                   block1["6"])
 
             gr = [players[i]["1"] for i in range(int(allRegimes.get(regime)))]  # Заполняем список всеми ИД групп
-            for i in range(len(gr)):  # удаляем всех, кто не в группе
-                if gr.count(players[i]["1"]) == 1:
-                    gr.remove(players[i]["1"])
-            lastGr = 0  # ИД последней группы
-            grCount = 0  # Номер группы
-
+            gr2 = {}
+            grCount = 0
+            for i in range(len(gr)):    # словарь с ид группы и ид цвета
+                if gr.count(players[i]["1"]) > 1 and players[i]["1"] not in gr2:
+                    gr2[players[i]["1"]] = grCount
+                    grCount += 1
             for i in range(int(allRegimes.get(regime))):
+                color = " "
                 if i == 0:
                     print(Fore.BLUE + "\nКоманда #1")
-                if i == 4:
+                elif i == 4:
                     print(Fore.BLUE + "\nКоманда #2")
-                # Помечает, находится ли игрок в группе. Работает только с 1-м цветом
-                # color = Back.LIGHTBLUE_EX if gr.count(player["1"]) > 1 else Back.RESET
-                # Помечает, находится ли игрок в группе. Возможность до 4-х групп
-                if players[i]["1"] in gr:  # проверяем находится ли игрок в группе
-                    #print("leader") if players[i]["1"] == players[i]["0"] else print()
-                    gr.remove(players[i]["1"])  # удаляем его из списка
-                    if players[i]["1"] != lastGr:  # проверка, состоит ли игрок в предыдущей группе
-                        lastGr = players[i]["1"]  # если не состоит, то новой группа получает новый ИД
-                        grCount += 1  # меняет ИД цвета группы
-                    color = groups[grCount] + " "  # получает ИД цвета группы
+                if players[i]["1"] in gr2:  # проверка, состоит ли игрок в группе
+                    color = groups[gr2.get(players[i]["1"])] + " "
                     if players[i]["1"] == players[i]["0"]:  # проверка на лидера группы
-                        color = groups[grCount] + Fore.BLACK + Style.NORMAL + "!"
-                else:
-                    color = Back.RESET + " "  # Если не в группе, без цвета
-                # Проверка, есть ли новый оперативник в словаре, в случае None
-                # oper = allOp[players[i]["8"]["1"]] if allOp.get(players[i]["8"]["1"]) != None else players[i]["8"]["1"] # Проверка, есть ли новый оперативник в словаре, в случае None
-                # убрал {Fore.MAGENTA}ID группы: {Fore.RED}{("{0:<10}").format(players[i]["1"])}
+                        color = groups[gr2.get(players[i]["1"])] + Fore.BLACK + Style.NORMAL + "!"
                 print(
                     f"""{color}{Back.RESET + Style.BRIGHT + Fore.RED}{("{0:<20}").format(players[i]["2"])}{Fore.MAGENTA}ID игрока: {Fore.RED}{("{0:<10}").format(players[i]["0"])}{Fore.MAGENTA}Опер: {Fore.RED}{("{0:<14}").format(allOp[players[i]["8"]["1"]] if allOp.get(players[i]["8"]["1"]) != None else players[i]["8"]["1"])}{Fore.MAGENTA}Уровень: {Fore.RED}{("{0:<4}").format(players[i]["3"])}{Fore.MAGENTA}""")
 
