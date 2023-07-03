@@ -152,27 +152,6 @@ while work:
                                 print(
                                         f"""{Fore.MAGENTA}{"+" if battlePlayersGr[plTeams]["IsReady"] else "-"} {Fore.RED}{"{0:<22}".format(battlePlayersGr[plTeams]["Nickname"])}{Fore.MAGENTA}Роль: {Fore.RED}{"{0:<8}".format(battlePlayersGr[plTeams]["Role"])}{Fore.MAGENTA}Опер: {Fore.RED}{"{0:<10}".format(operID.get(battlePlayersGr[plTeams]["PickedCard"]["Card"]["1"]) if battlePlayersGr[plTeams]["PickedCard"] is not None else "Не выбран")}{Fore.MAGENTA} Ур оп:{Fore.RED}{"{0:^4}".format(battlePlayersGr[plTeams]["PickedCard"]["Card"]["18"] if battlePlayersGr[plTeams]["PickedCard"] != None else "None")}{Fore.MAGENTA}Расходники:{Fore.RED}{consumables}""")
                                 print(f"""{Fore.GREEN}{abil}""")
-                            # старый без сортировки
-                            # for plTeams in range(len(battleJson["b"]["Teams"][plCount])):
-                            #     abil = "| "
-                            #     consumables = "| "
-                            #     if battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"] is not None:
-                            #         for t in range(2):  # расходники
-                            #             consumables += "{0:^12}".format(consumablesID.get(
-                            #                 battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"]["Card"][
-                            #                     "14"][t])) + "|"
-                            #         for l in range(4):  # навыки
-                            #             abil += "{0:^18}".format(abilityID.get(
-                            #                 battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"]["Card"][
-                            #                     "15"][l]) if battleJson["b"]["Teams"][plCount]["Users"][plTeams][
-                            #                                      "PickedCard"]["Card"]["15"][
-                            #                                      l] is not None else "-") + "|"
-                            #     print(
-                            #         f"""{Fore.MAGENTA}{"+" if battleJson["b"]["Teams"][plCount]["Users"][plTeams]["IsReady"] else "-"} {Fore.RED}{"{0:<22}".format(battleJson["b"]["Teams"][plCount]["Users"][plTeams]["Nickname"])}{Fore.MAGENTA}Роль: {Fore.RED}{"{0:<8}".format(battleJson["b"]["Teams"][plCount]["Users"][plTeams]["Role"])}{Fore.MAGENTA}Опер: {Fore.RED}{"{0:<10}".format(operID.get(battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"]["Card"]["1"]) if battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"] is not None else "Не выбран")}{Fore.MAGENTA} Ур оп:{Fore.RED}{"{0:^4}".format(battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"]["Card"]["18"] if battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"] != None else "None")}{Fore.MAGENTA}Расходники:{Fore.RED}{consumables}""")
-                            #     print(f"""{Fore.GREEN}{abil}""")
-
-                        # time.sleep(0.3)
-                        # os.system('CLS')
                         break
                     elif i == len(textBattle) - 1:
                         print(Fore.RED, "Игра не найдена. Введите b во время старта боя")
