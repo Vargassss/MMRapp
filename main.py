@@ -1,14 +1,16 @@
 import os
 import json
 import ctypes
+import time
 from art import tprint
 from colorama import init
 from colorama import Fore, Back, Style
+from datetime import datetime, timezone
 
 init()
 
-allOp = {  # Словарь ид оперативника : название
-    "recruita": "", "recruitg": "Р-Поддержка", "recruitm": "Р-Медик", "recruits": "Р-Снайпер",
+allOp = {
+    "recruita": "Р-Штурмовик", "recruitg": "Р-Поддержка", "recruitm": "Р-Медик", "recruits": "Р-Снайпер",
     "fsb2004a": "Волк", "fsb2004g": "Алмаз", "fsb2004m": "Дед", "fsb2004s": "Стрелок",
     "fsb2016a": "Перун", "fsb2016g": "Сварог", "fsb2016m": "Травник", "fsb2016s": "Сокол",
     "sso2013a": "Ворон", "sso2013g": "Спутник", "sso2013m": "Бард", "sso2013s": "Комар",
@@ -16,7 +18,7 @@ allOp = {  # Словарь ид оперативника : название
     "grom2014a": "Кошмар", "grom2014g": "Пророк", "grom2014m": "Микола", "grom2014s": "Стилет",
     "ksk2011a": "Рейн", "ksk2011g": "Штерн", "ksk2011m": "Шатц", "ksk2011s": "Курт",
     "seal2014a": "Корсар", "seal2014g": "Бурбон", "seal2014m": "Монк", "seal2014s": "Скаут",
-    "tfb2008a": "Стрелинг", "tfb2008g": "Бишоп", "tfb2008m": "Ватсон", "tfb2008s": "Арчер",
+    "tfb2008a": "Стерлинг", "tfb2008g": "Бишоп", "tfb2008m": "Ватсон", "tfb2008s": "Арчер",
     "raid2017a": "Авангард", "raid2017g": "Бастион", "raid2017m": "Велюр", "raid2017s": "Вагабонд",
     "nesher2015a": "Афела", "nesher2015g": "Хагана", "nesher2015m": "Шаршерет", "nesher2015s": "Эйма",
     "ezapaca": "Фаро", "ezapacg": "Матадор", "ezapacm": "Мигель", "ezapacs": "Диабло",
@@ -24,7 +26,39 @@ allOp = {  # Словарь ид оперативника : название
     "belssoa": "Лазутчик", "belssog": "Зубр", "belssom": "Каваль", "belssos": "Бусел",
     "amfa": "Старкад", "amfg": "Один", "amfm": "Фрейр", "amfs": "Видар",
     "jiaolonga": "Шаовэй", "jiaolongg": "Инчжоу", "jiaolongm": "Яован", "jiaolongs": "Цанлун",
-    "csta": "Слай", "cstg": "Фортресс", "cstm": "Боунс", "csts": "Аваланш"
+    "csta": "Слай", "cstg": "Фортресс", "cstm": "Боунс", "csts": "Аваланш", "bopea": "Мартелу", "bopeg": "Баррейра",
+    "bopem": "Асаи", "bopes": "Касадор",
+}
+operID = {
+    1: "Р-?", 2: "Р-Поддержка", 3: "Р-Медик", 4: "Р-?", 5: "5", 6: "6", 7: "7", 8: "Волк", 9: "Стрелок", 10: "Алмаз",
+    11: "Дед", 12: "Кошмар", 13: "Стилет", 14: "Пророк", 15: "Микола", 16: "Перун", 17: "Сокол", 18: "Сварог",
+    19: "Травник", 20: "Рейн", 21: "Курт", 22: "Штерн", 23: "Шатц", 24: "Ворон", 25: "Комар", 26: "Спутник", 27: "Бард",
+    28: "Корсар", 29: "Скаут", 30: "Бурбон", 31: "Монк", 32: "Плут", 33: "Тень", 34: "Кит", 35: "Каравай", 36: "Ватсон",
+    37: "Арчер", 38: "Стерлинг", 39: "Бишоп", 40: "Бастион",
+    41: "Велюр", 42: "Авангард", 43: "Вагабонд", 44: "Афелла", 45: "Эйма", 46: "Хагана", 47: "Шаршарет", 48: "Диабло",
+    49: "Мигель", 50: "Матадор", 51: "Фаро", 52: "Мустанг",
+    53: "Султан", 54: "Багги", 55: "Тибет", 56: "Лазутчик", 57: "Бусел", 58: "Зубр", 59: "Каваль", 60: "Стардкад",
+    61: "Один", 62: "Фрейр", 63: "Видар", 64: "Шаовей", 65: "Инчжоу", 66: "Цанлун", 67: "Яован", 68: "Слай",
+    69: "Аваланш", 70: "Фортресс", 71: "Боунс", 72: "Мартелу", 73: "Баррейра", 74: "Асаи", 75: "Касадор", 76: "76",
+    77: "77", 78: "78", 79: "79", 80: "80", 81: "81", 82: "82", 83: "83"
+}
+
+abilityID = {
+    0: "Ловкость рук", 1: "Трен. дыхания", 2: "Угл. тренировка", 3: "Вооруж. забег", 4: "Б. закалка",
+    5: "Крепкие нервы", 6: "Сыв.гемоглабина", 7: "Вт. дыхание", 8: "Стрелк. позиция", 9: "Хороший отдых",
+    10: "Герм. материалы", 11: "Суб. мельдоний", 12: "Противооскол. слой", 13: "Суб. морфин", 14: "Реген. материалы",
+    15: "Адапт. броня", 16: "Пл. прилегание", 17: "Комб. броня", 18: "Защ. головы", 19: "Обр. цевья",
+    20: "Пр.нарез. ствола", 21: "Быстр. магазины", 22: "Мод. зат. мех.", 23: "Чувств. спуск. к.", 24: "Бб. патроны",
+    25: "Тяж. боеприпасы", 26: "Тепловизор", 27: "Настильность", 28: "Вольфрам. покрытие", 29: "Зап. шприц", 30: "Ул. формула",
+    31: "Холодный расчет", 32: "32", 33: "33", 34: "Засада", 35: "Кровавая ярость", 36: "Контратака", 37: "Охота за г.",
+    38: "Возмездие",
+    39: "39", 40: "Самолечение", 41: "41", 42: "42", 43: "Расчетливость", 44: "Скорая помощь", 45: "45", 46: "46",
+    47: "Крепкий орешек", 48: "Фактор лечения", 49: "Усил. стим.", 50: "50", 51: "Калибровка техники", 52: "Готовность",
+    53: "Тяж. ствол",
+    54: "Хладнокровие", 55: "Обл. разгрузка", 56: "Стим. мед.", 57: "57", 58: "58", 59: "Экспанс. пули", 60: "60",
+    61: "Внутр. резерв",
+    62: "Приор. цель", 63: "Плечом к плечу", 64: "64", 65: "Ус. защита", 66: "67", 67: "67", 68: "68", 69: "69", 70: "70",
+    71: "71"
 }
 
 groups = {  # Создаем номер группы и с уникальным цветом(максимум возможно 4 группы)
@@ -33,6 +67,9 @@ groups = {  # Создаем номер группы и с уникальным 
 allRegimes = {  # Список режимов и количество игроков в нем
     "polygon": 1, "pvehard": 4, "pve": 4, "onslaughtnormal": 4, "onslaughthard": 4, "pvpdestruction": 8,
     "pvpve": 8, "pvp": 8, "hacking": 8
+}
+consumablesID = {
+    0: "Стимулятор", 1: "Мед. пакет", 2: "Пластина", 3: "Патроны", 4: "Ящик", 5: "Ящик", 6: "-"
 }
 
 print(Fore.RED)
@@ -51,10 +88,103 @@ while work:
         reverse=True)
     for i, file in enumerate(content):  # вывод реплеев
         print(Fore.BLUE + str(i) + " " + Fore.GREEN + content[i])
-    number = input(Fore.BLUE + "Введите номер реплея\n")
+    number = input(
+        Fore.GREEN + "Введите" + Fore.BLUE + " НОМЕР " + Fore.GREEN + "реплея или" + Fore.BLUE + " b (battle) " + Fore.GREEN + "чтобы посмотреть игроков в текущем поиске\n" + Fore.BLUE)
     os.system('CLS')
-    if number.isdigit() and int(number) < len(content):  # проверка введенного на число, количество
+    if number.lower() == "b" or number == "battle":
+        bufTime = 0.0
+        workBattle = True
+        while workBattle:
+            with open("C:\\Users\\" + name + "\\AppData\\LocalLow\\1CGS\\Caliber\\Player.log", "r") as f:
+                textBattle = f.readlines()
+                for i in range(len(textBattle)):
+                    textLine = str(textBattle[len(textBattle) - i - 1])
+                    if textLine[100:160].find("battlepreparation/me") != -1:
+                        battleLine = textBattle[len(textBattle) - i]
+                        if len(battleLine) < 100:  # проверка, пустая ли строка с реплеем
+                            continue
+                        timeLine = textLine[1:textLine.find("]")]
+                        timeLine = datetime.fromisoformat(timeLine)
+                        currentTime = datetime.now(timezone.utc)
+                        if bufTime == timeLine.timestamp():  # проверка, выведена ли эта информация
+                            if (currentTime.timestamp() - timeLine.timestamp()) > 21:
+                                print(
+                                    Fore.RED + "Выведена информация о последнем поиске боя."
+                                               " Подготовка к раунду закончилась больше 20 сек. назад.")
+                                input("Нажмите" + Fore.GREEN + " ENTER " + Fore.RED + "чтобы продолжить")
+                                workBattle = False
+                                break
+                            print("\r", end="")
+                            print(Fore.MAGENTA + "Последняя информация получена " + Fore.RED +
+                                  str(int(
+                                      currentTime.timestamp() - timeLine.timestamp())) + Fore.MAGENTA + " сек. назад.",
+                                  end="")
+                            time.sleep(0.5)
+                            break
+                        bufTime = timeLine.timestamp()
+                        print()
+                        os.system('CLS')
+
+                        battleJson = json.loads(battleLine)
+
+                        print(Fore.MAGENTA, battleJson["b"]["Mission"]["SelectedMission"]["MissionId"], "\n")
+                        print(Fore.MAGENTA,
+                              battleJson["b"]["Stages"][battleJson["b"]["CurrentStage"]["Index"]]["stage_type"])
+                        for plCount in range(len(battleJson["b"]["Teams"])):
+                            if plCount == 0:
+                                print(Fore.BLUE + "\nКоманда #1")
+                            elif plCount == 1:
+                                print(Fore.BLUE + "\nКоманда #2")
+
+
+                            battlePlayersGr = [battleJson["b"]["Teams"][plCount]["Users"][p] for p in range(len(battleJson["b"]["Teams"][plCount]["Users"]))]   # берем список игроков
+                            battlePlayersGr.sort(key=lambda x: x["Role"])   # Сортируем
+                            for plTeams in range(len(battlePlayersGr)):     # Вывод
+                                abil = "| "
+                                consumables = "| "
+                                if battlePlayersGr[plTeams]["PickedCard"] is not None:
+                                    for t in range(2):  # расходники
+                                        consumables += "{0:^12}".format(consumablesID.get(battlePlayersGr[plTeams]["PickedCard"]["Card"]["14"][t])) + "|"
+                                    for l in range(4):      # навыки
+                                        abil += "{0:^18}".format(abilityID.get(
+                                            battlePlayersGr[plTeams]["PickedCard"]["Card"][
+                                                "15"][l]) if battlePlayersGr[plTeams]["PickedCard"]["Card"]["15"][l] is not None else "-") + "|"
+                                print(
+                                        f"""{Fore.MAGENTA}{"+" if battlePlayersGr[plTeams]["IsReady"] else "-"} {Fore.RED}{"{0:<22}".format(battlePlayersGr[plTeams]["Nickname"])}{Fore.MAGENTA}Роль: {Fore.RED}{"{0:<8}".format(battlePlayersGr[plTeams]["Role"])}{Fore.MAGENTA}Опер: {Fore.RED}{"{0:<10}".format(operID.get(battlePlayersGr[plTeams]["PickedCard"]["Card"]["1"]) if battlePlayersGr[plTeams]["PickedCard"] is not None else "Не выбран")}{Fore.MAGENTA} Ур оп:{Fore.RED}{"{0:^4}".format(battlePlayersGr[plTeams]["PickedCard"]["Card"]["18"] if battlePlayersGr[plTeams]["PickedCard"] != None else "None")}{Fore.MAGENTA}Расходники:{Fore.RED}{consumables}""")
+                                print(f"""{Fore.GREEN}{abil}""")
+                            # старый без сортировки
+                            # for plTeams in range(len(battleJson["b"]["Teams"][plCount])):
+                            #     abil = "| "
+                            #     consumables = "| "
+                            #     if battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"] is not None:
+                            #         for t in range(2):  # расходники
+                            #             consumables += "{0:^12}".format(consumablesID.get(
+                            #                 battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"]["Card"][
+                            #                     "14"][t])) + "|"
+                            #         for l in range(4):  # навыки
+                            #             abil += "{0:^18}".format(abilityID.get(
+                            #                 battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"]["Card"][
+                            #                     "15"][l]) if battleJson["b"]["Teams"][plCount]["Users"][plTeams][
+                            #                                      "PickedCard"]["Card"]["15"][
+                            #                                      l] is not None else "-") + "|"
+                            #     print(
+                            #         f"""{Fore.MAGENTA}{"+" if battleJson["b"]["Teams"][plCount]["Users"][plTeams]["IsReady"] else "-"} {Fore.RED}{"{0:<22}".format(battleJson["b"]["Teams"][plCount]["Users"][plTeams]["Nickname"])}{Fore.MAGENTA}Роль: {Fore.RED}{"{0:<8}".format(battleJson["b"]["Teams"][plCount]["Users"][plTeams]["Role"])}{Fore.MAGENTA}Опер: {Fore.RED}{"{0:<10}".format(operID.get(battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"]["Card"]["1"]) if battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"] is not None else "Не выбран")}{Fore.MAGENTA} Ур оп:{Fore.RED}{"{0:^4}".format(battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"]["Card"]["18"] if battleJson["b"]["Teams"][plCount]["Users"][plTeams]["PickedCard"] != None else "None")}{Fore.MAGENTA}Расходники:{Fore.RED}{consumables}""")
+                            #     print(f"""{Fore.GREEN}{abil}""")
+
+                        # time.sleep(0.3)
+                        # os.system('CLS')
+                        break
+                    elif i == len(textBattle) - 1:
+                        print(Fore.RED, "Игра не найдена. Введите b во время старта боя")
+                        workBattle = False
+                        break
+
+
+    elif number.isdigit() and int(number) < len(content):  # проверка введенного на число, количество
         number = int(number)
+        if not content[number].endswith(".bytes"):
+            print(Fore.RED + "Нельзя открыть этот файл")
+            continue
         with open("C:\\Users\\" + name + "\\AppData\\LocalLow\\1CGS\\Caliber\\Replays\\" + content[number], "rb") as f:
             text = f.readline()
             text = str(text)  # приведение к str с byte
@@ -75,7 +205,7 @@ while work:
             gr = [players[i]["1"] for i in range(int(allRegimes.get(regime)))]  # Заполняем список всеми ИД групп
             gr2 = {}
             grCount = 0
-            for i in range(len(gr)):    # словарь с ид группы и ид цвета
+            for i in range(len(gr)):     # словарь с ид группы и ид цвета
                 if gr.count(players[i]["1"]) > 1 and players[i]["1"] not in gr2:
                     gr2[players[i]["1"]] = grCount
                     grCount += 1
@@ -90,12 +220,12 @@ while work:
                     if players[i]["1"] == players[i]["0"]:  # проверка на лидера группы
                         color = groups[gr2.get(players[i]["1"])] + Fore.BLACK + Style.NORMAL + "!"
                 print(
-                    f"""{color}{Back.RESET + Style.BRIGHT + Fore.RED}{("{0:<20}").format(players[i]["2"])}{Fore.MAGENTA}ID игрока: {Fore.RED}{("{0:<10}").format(players[i]["0"])}{Fore.MAGENTA}Опер: {Fore.RED}{("{0:<14}").format(allOp[players[i]["8"]["1"]] if allOp.get(players[i]["8"]["1"]) != None else players[i]["8"]["1"])}{Fore.MAGENTA}Уровень: {Fore.RED}{("{0:<4}").format(players[i]["3"])}{Fore.MAGENTA}""")
+                    f"""{color}{Back.RESET + Style.BRIGHT + Fore.RED}{("{0:<22}").format(players[i]["2"])}{Fore.MAGENTA}ID игрока: {Fore.RED}{("{0:<10}").format(players[i]["0"])}{Fore.MAGENTA}Опер: {Fore.RED}{("{0:<14}").format(allOp[players[i]["8"]["1"]] if allOp.get(players[i]["8"]["1"]) is not None else players[i]["8"]["1"])}{Fore.MAGENTA}Уровень: {Fore.RED}{("{0:<4}").format(players[i]["3"])}{Fore.MAGENTA}""")
 
             # Вывод доп инфы
             while True:
                 word = input(
-                    f"""{Fore.BLUE}\ni (info){Fore.GREEN} - Дополнительная информация об игроках\n{Fore.BLUE}r (replays){Fore.GREEN} - к списку реплеев\n{Fore.BLUE}e (exit){Fore.GREEN} - выход\n""").lower()
+                    f"""{Fore.BLUE}\ni (info){Fore.GREEN} - Дополнительная информация об игроках\n{Fore.BLUE}r (replays){Fore.GREEN} - к списку реплеев\n{Fore.BLUE}e (exit){Fore.GREEN} - выход\n{Fore.BLUE}""").lower()
                 if word == "info" or word == "i":
                     for i in range(int(allRegimes.get(regime))):
                         print(Fore.BLUE, i, Fore.GREEN, players[i]["2"], Fore.BLUE)
