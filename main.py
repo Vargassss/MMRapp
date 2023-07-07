@@ -30,13 +30,13 @@ allOp = {
     "bopem": "Асаи", "bopes": "Касадор",
 }
 operID = {
-    1: "Р-?", 2: "Р-Поддержка", 3: "Р-Медик", 4: "Р-?", 5: "5", 6: "6", 7: "7", 8: "Волк", 9: "Стрелок", 10: "Алмаз",
+    0: "Р-Штурмовик", 1: "Р-Снайпер", 2: "Р-Поддержка", 3: "Р-Медик", 4: "4", 5: "5", 6: "6", 7: "7", 8: "Волк",
+    9: "Стрелок", 10: "Алмаз",
     11: "Дед", 12: "Кошмар", 13: "Стилет", 14: "Пророк", 15: "Микола", 16: "Перун", 17: "Сокол", 18: "Сварог",
     19: "Травник", 20: "Рейн", 21: "Курт", 22: "Штерн", 23: "Шатц", 24: "Ворон", 25: "Комар", 26: "Спутник", 27: "Бард",
     28: "Корсар", 29: "Скаут", 30: "Бурбон", 31: "Монк", 32: "Плут", 33: "Тень", 34: "Кит", 35: "Каравай", 36: "Ватсон",
-    37: "Арчер", 38: "Стерлинг", 39: "Бишоп", 40: "Бастион",
-    41: "Велюр", 42: "Авангард", 43: "Вагабонд", 44: "Афелла", 45: "Эйма", 46: "Хагана", 47: "Шаршарет", 48: "Диабло",
-    49: "Мигель", 50: "Матадор", 51: "Фаро", 52: "Мустанг",
+    37: "Арчер", 38: "Стерлинг", 39: "Бишоп", 40: "Бастион", 41: "Велюр", 42: "Авангард", 43: "Вагабонд", 44: "Афелла",
+    45: "Эйма", 46: "Хагана", 47: "Шаршарет", 48: "Диабло", 49: "Мигель", 50: "Матадор", 51: "Фаро", 52: "Мустанг",
     53: "Султан", 54: "Багги", 55: "Тибет", 56: "Лазутчик", 57: "Бусел", 58: "Зубр", 59: "Каваль", 60: "Стардкад",
     61: "Один", 62: "Фрейр", 63: "Видар", 64: "Шаовей", 65: "Инчжоу", 66: "Цанлун", 67: "Яован", 68: "Слай",
     69: "Аваланш", 70: "Фортресс", 71: "Боунс", 72: "Мартелу", 73: "Баррейра", 74: "Асаи", 75: "Касадор", 76: "76",
@@ -49,15 +49,15 @@ abilityID = {
     10: "Герм. материалы", 11: "Суб. мельдоний", 12: "Противооскол. слой", 13: "Суб. морфин", 14: "Реген. материалы",
     15: "Адапт. броня", 16: "Пл. прилегание", 17: "Комб. броня", 18: "Защ. головы", 19: "Обр. цевья",
     20: "Пр.нарез. ствола", 21: "Быстр. магазины", 22: "Мод. зат. мех.", 23: "Чувств. спуск. к.", 24: "Бб. патроны",
-    25: "Тяж. боеприпасы", 26: "Тепловизор", 27: "Настильность", 28: "Вольфрам. покрытие", 29: "Зап. шприц", 30: "Ул. формула",
-    31: "Холодный расчет", 32: "32", 33: "33", 34: "Засада", 35: "Кровавая ярость", 36: "Контратака", 37: "Охота за г.",
-    38: "Возмездие",
-    39: "39", 40: "Самолечение", 41: "41", 42: "42", 43: "Расчетливость", 44: "Скорая помощь", 45: "45", 46: "46",
-    47: "Крепкий орешек", 48: "Фактор лечения", 49: "Усил. стим.", 50: "50", 51: "Калибровка техники", 52: "Готовность",
-    53: "Тяж. ствол",
-    54: "Хладнокровие", 55: "Обл. разгрузка", 56: "Стим. мед.", 57: "57", 58: "58", 59: "Экспанс. пули", 60: "60",
-    61: "Внутр. резерв",
-    62: "Приор. цель", 63: "Плечом к плечу", 64: "64", 65: "Ус. защита", 66: "67", 67: "67", 68: "68", 69: "69", 70: "70",
+    25: "Тяж. боеприпасы", 26: "Тепловизор", 27: "Настильность", 28: "Вольфрам. покрытие", 29: "Зап. шприц",
+    30: "Ул. формула", 31: "Холодный расчет", 32: "Выс. подготовка", 33: "Скрытый воин", 34: "Засада",
+    35: "Кровавая ярость", 36: "Контратака", 37: "Охота за г.", 38: "Возмездие", 39: "Облегченная защита",
+    40: "Самолечение", 41: "Одинокий волк", 42: "Доп. подсумки", 43: "Расчетливость", 44: "Скорая помощь",
+    45: "Тяга к жизни", 46: "Беспощадность", 47: "Крепкий орешек", 48: "Фактор лечения", 49: "Усил. стим.",
+    50: "Готовность", 51: "Калибровка техники", 52: "Готовность", 53: "Тяж. ствол", 54: "Хладнокровие",
+    55: "Обл. разгрузка", 56: "Стим. медикаменты", 57: "Прилив адреналина", 58: "Скрыт перемещение",
+    59: "Экспанс. пули", 60: "Под прицелом", 61: "Внутр. резерв", 62: "Свои приоритеты", 63: "Плечом к плечу",
+    64: "Приоритетная цель", 65: "Ус. защита", 66: "Общий мед пакет", 67: "Свежие силы", 68: "68", 69: "69", 70: "70",
     71: "71"
 }
 
@@ -136,21 +136,23 @@ while work:
                             elif plCount == 1:
                                 print(Fore.BLUE + "\nКоманда #2")
 
-
-                            battlePlayersGr = [battleJson["b"]["Teams"][plCount]["Users"][p] for p in range(len(battleJson["b"]["Teams"][plCount]["Users"]))]   # берем список игроков
-                            battlePlayersGr.sort(key=lambda x: x["Role"])   # Сортируем
-                            for plTeams in range(len(battlePlayersGr)):     # Вывод
+                            battlePlayersGr = [battleJson["b"]["Teams"][plCount]["Users"][p] for p in range(
+                                len(battleJson["b"]["Teams"][plCount]["Users"]))]  # берем список игроков
+                            battlePlayersGr.sort(key=lambda x: x["Role"])  # Сортируем
+                            for plTeams in range(len(battlePlayersGr)):  # Вывод
                                 abil = "| "
                                 consumables = "| "
                                 if battlePlayersGr[plTeams]["PickedCard"] is not None:
                                     for t in range(2):  # расходники
-                                        consumables += "{0:^12}".format(consumablesID.get(battlePlayersGr[plTeams]["PickedCard"]["Card"]["14"][t])) + "|"
-                                    for l in range(4):      # навыки
+                                        consumables += "{0:^12}".format(consumablesID.get(
+                                            battlePlayersGr[plTeams]["PickedCard"]["Card"]["14"][t])) + "|"
+                                    for l in range(4):  # навыки
                                         abil += "{0:^18}".format(abilityID.get(
                                             battlePlayersGr[plTeams]["PickedCard"]["Card"][
-                                                "15"][l]) if battlePlayersGr[plTeams]["PickedCard"]["Card"]["15"][l] is not None else "-") + "|"
+                                                "15"][l]) if battlePlayersGr[plTeams]["PickedCard"]["Card"]["15"][
+                                                                 l] is not None else "-") + "|"
                                 print(
-                                        f"""{Fore.MAGENTA}{"+" if battlePlayersGr[plTeams]["IsReady"] else "-"} {Fore.RED}{"{0:<22}".format(battlePlayersGr[plTeams]["Nickname"])}{Fore.MAGENTA}Роль: {Fore.RED}{"{0:<8}".format(battlePlayersGr[plTeams]["Role"])}{Fore.MAGENTA}Опер: {Fore.RED}{"{0:<10}".format(operID.get(battlePlayersGr[plTeams]["PickedCard"]["Card"]["1"]) if battlePlayersGr[plTeams]["PickedCard"] is not None else "Не выбран")}{Fore.MAGENTA} Ур оп:{Fore.RED}{"{0:^4}".format(battlePlayersGr[plTeams]["PickedCard"]["Card"]["18"] if battlePlayersGr[plTeams]["PickedCard"] != None else "None")}{Fore.MAGENTA}Расходники:{Fore.RED}{consumables}""")
+                                    f"""{Fore.MAGENTA}{"+" if battlePlayersGr[plTeams]["IsReady"] else "-"} {Fore.RED}{"{0:<22}".format(battlePlayersGr[plTeams]["Nickname"])}{Fore.MAGENTA}Роль: {Fore.RED}{"{0:<8}".format(battlePlayersGr[plTeams]["Role"])}{Fore.MAGENTA}Опер: {Fore.RED}{"{0:<10}".format(operID.get(battlePlayersGr[plTeams]["PickedCard"]["Card"]["1"]) if battlePlayersGr[plTeams]["PickedCard"] is not None else "Не выбран")}{Fore.MAGENTA} Ур оп:{Fore.RED}{"{0:^4}".format(battlePlayersGr[plTeams]["PickedCard"]["Card"]["18"] if battlePlayersGr[plTeams]["PickedCard"] is not None else "None")}{Fore.MAGENTA}Расходники:{Fore.RED}{consumables}""")
                                 print(f"""{Fore.GREEN}{abil}""")
                         break
                     elif i == len(textBattle) - 1:
@@ -184,7 +186,7 @@ while work:
             gr = [players[i]["1"] for i in range(int(allRegimes.get(regime)))]  # Заполняем список всеми ИД групп
             gr2 = {}
             grCount = 0
-            for i in range(len(gr)):     # словарь с ид группы и ид цвета
+            for i in range(len(gr)):  # словарь с ид группы и ид цвета
                 if gr.count(players[i]["1"]) > 1 and players[i]["1"] not in gr2:
                     gr2[players[i]["1"]] = grCount
                     grCount += 1
